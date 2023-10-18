@@ -78,6 +78,8 @@ paths:
 
   /api/productoVendido:
     get:
+      tags:
+        - Salida
       summary: Listar ventas de productos
       responses:
         '200':

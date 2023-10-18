@@ -1,5 +1,7 @@
 import express from 'express';
 import morgan from 'morgan';
+import swaggerUI from 'swagger-ui-express';
+import YAML from 'yamljs';
 
 import entrada from './routes/Entrada.routes.js';
 import salida from './routes/Salida.routes.js';
@@ -20,7 +22,8 @@ app.use((req, res, next) => {
   res.header('Allow', 'GET, POST, OPTIONS, PUT, DELETE');
   next();
 });
-
+const swaggerDoc = YAML.load('src/doc.yaml');
+app.use('/doc', swaggerUI.serve, swaggerUI.setup(swaggerDoc));
 app.use(entrada);
 app.use(salida);
 export default app;
