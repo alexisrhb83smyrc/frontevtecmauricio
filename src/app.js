@@ -2,7 +2,7 @@ import express from 'express';
 import morgan from 'morgan';
 
 import entrada from './routes/Entrada.routes.js';
-import inventario from './routes/Invventario.routes.js';
+import salida from './routes/Salida.routes.js';
 import './relations/Relaciones.js';
 
 const app = express();
@@ -22,5 +22,5 @@ app.use((req, res, next) => {
 });
 
 app.use(entrada);
-app.use(inventario);
+app.use(salida);
 export default app;
