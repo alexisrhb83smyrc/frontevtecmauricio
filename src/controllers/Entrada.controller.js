@@ -24,16 +24,28 @@ export const ActualizarProducto = async (req, res) => {
   try {
     const id = req.params.id;
     const product = await Producto.findOne({ where: { id } });
+
     if (!product) {
-      return res.status(404).json({ message: 'No se encontro el producto' });
-    } else {
-      product.set(req.body);
-      await product.save();
+      return res.status(404).json({ message: 'No se encontró el producto' });
     }
+
+    const totalEntradas = await Entrada.findOne( {
+      where: { productoId: id },
+    });
+    console.log(totalEntradas.cantidad, ' s');
+    const nuevaCantidad = totalEntradas.cantidad + req.body.cantidad;
+
+    totalEntradas.cantidad = nuevaCantidad;
+    product.nombre_producto = req.body.nombre_producto;
+    product.descripcion = req.body.descripcion;
+
+    await product.save({ transaction: t });
+    await totalEntradas.save({ transaction: t });
     await t.commit();
-    return res.status(200).json({ message: 'Nota actualizada' });
+    return res.status(200).json({ message: 'Producto actualizado' });
   } catch (error) {
     await t.rollback();
+    console.log(error);
     return res.status(500).json({ message: 'Error del servidor' });
   }
 };
