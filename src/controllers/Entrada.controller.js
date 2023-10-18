@@ -28,11 +28,9 @@ export const ActualizarProducto = async (req, res) => {
     if (!product) {
       return res.status(404).json({ message: 'No se encontró el producto' });
     }
-
-    const totalEntradas = await Entrada.findOne( {
+    const totalEntradas = await Entrada.findOne({
       where: { productoId: id },
     });
-    console.log(totalEntradas.cantidad, ' s');
     const nuevaCantidad = totalEntradas.cantidad + req.body.cantidad;
 
     totalEntradas.cantidad = nuevaCantidad;
@@ -54,14 +52,16 @@ export const BorrarProducto = async (req, res) => {
   const t = await sequelize.transaction();
   try {
     const id = req.params.id;
-    const product = await product.findOne({ where: { id } });
+    const product = await Producto.findOne({ where: { id } });
     if (!product) {
       return res.status(404).json({ message: 'Producto no encontrado' });
     }
     await Producto.destroy({ where: { id } });
     await t.commit();
+    return res.status(200).json({ message: 'Eliminado' });
   } catch (error) {
     await t.rollback();
+    console.log(error);
     return res.status(500).json({ message: 'Error de servidor' });
   }
 };
