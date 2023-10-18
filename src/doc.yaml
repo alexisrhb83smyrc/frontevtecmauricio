@@ -1,0 +1,175 @@
+openapi: 3.0.0
+info:
+  title: API de Ventas de Productos
+  description: API para gestionar ventas de productos y actualizaciones de ventas.
+  version: 1.0.0
+servers:
+  - url: http://localhost:8080
+
+tags:
+  - name: Entrada
+    description: Documentacion de las URL's de entrada
+    externalDocs:
+      url: http://localhost:8080
+  - name: Salida
+    description: Documentacion de las URL's de salida
+    externalDocs:
+      url: http://localhost:8080
+
+paths:
+  /api/vender/producto:
+    post:
+      tags:
+        - Salida
+      summary: Registrar una venta de producto
+      requestBody:
+        description: Nombre de las variables requeridas para crear venta
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                cantidad:
+                  type: integer
+                  description: Cantidad de productos vendidos.
+                producto:
+                  type: string
+                  description: Nombre del producto.
+                descripcion:
+                  type: string
+                  description: Descripción del producto.
+      responses:
+        '200':
+          description: Venta registrada exitosamente.
+        '500':
+          description: Error del servidor.
+
+  /api/update/venta/{id}:
+    put:
+      tags:
+        - Salida
+      summary: Actualizar una venta de producto
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Identificador del usuario a actualizar
+          schema:
+            type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nombre_producto:
+                  type: string
+                  description: Nombre del producto
+                descripcion:
+                  type: string
+                  description: Descripcion del producto
+      responses:
+        '200':
+          description: Actualización de venta exitosa.
+        '404':
+          description: Venta no encontrada.
+        '500':
+          description: Error del servidor.
+
+  /api/productoVendido:
+    get:
+      summary: Listar ventas de productos
+      responses:
+        '200':
+          description: Lista de ventas de productos.
+        '500':
+          description: Error del servidor.
+
+  /api/crear/producto:
+    post:
+      tags:
+        - Entrada
+      summary: Crear un nuevo producto y entrada
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                cantidad:
+                  type: integer
+                  description: Cantidad de productos en la entrada.
+                producto:
+                  type: string
+                  description: Nombre del producto.
+                descripcion:
+                  type: string
+                  description: Descripción del producto.
+      responses:
+        '200':
+          description: Producto y entrada creados exitosamente.
+        '500':
+          description: Error del servidor.
+
+  /api/update/producto/{id}:
+    put:
+      tags:
+        - Entrada
+      summary: Actualizar un producto y entrada
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Identificador del usuario a actualizar
+          schema:
+            type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nombre_producto:
+                  type: string
+                  description: Nombre del producto
+                descripcion:
+                  type: string
+                  description: Descripcion del producto
+      responses:
+        '200':
+          description: Producto y entrada actualizados exitosamente.
+        '404':
+          description: Producto y entrada no encontrados.
+        '500':
+          description: Error del servidor.
+
+  /api/delete/producto/{id}:
+    delete:
+      tags:
+        - Entrada
+      summary: Eliminar un producto y entrada
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID del producto y entrada a eliminar.
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Producto y entrada eliminados exitosamente.
+        '404':
+          description: Producto y entrada no encontrados.
+        '500':
+          description: Error del servidor.
+
+  /api/producto:
+    get:
+      tags:
+        - Entrada
+      summary: Listar productos con entradas
+      responses:
+        '200':
+          description: Lista de productos con sus entradas.
+        '500':
+          description: Error del servidor.
