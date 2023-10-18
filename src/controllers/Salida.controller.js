@@ -6,8 +6,11 @@ import { Inventario } from '../models/Inventario.model.js';
 export const CrearSalidaProducto = async (req, res) => {
   const t = await sequelize.transaction();
   try {
-    const { cantidad, producto, descripcion } = req.body;
-    const product = await Producto.create({ producto, descripcion });
+    const { cantidad, id } = req.body;
+    const product = await Producto.findOne({ where: { id } });
+    if (!product) {
+      return res.status(404).json({ message: 'No se encontró el producto' });
+    }
     const productoId = product.id;
     const salida = await Salida.create({ cantidad, productoId });
     await t.commit();

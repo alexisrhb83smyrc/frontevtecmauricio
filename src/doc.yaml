@@ -15,6 +15,10 @@ tags:
     description: Documentacion de las URL's de salida
     externalDocs:
       url: http://localhost:8080
+  - name: Inventario
+    description: Documentacion de las URL's de inventario
+    externalDocs:
+      url: http://localhost:8080
 
 paths:
   /api/vender/producto:
@@ -32,12 +36,9 @@ paths:
                 cantidad:
                   type: integer
                   description: Cantidad de productos vendidos.
-                producto:
-                  type: string
-                  description: Nombre del producto.
-                descripcion:
-                  type: string
-                  description: Descripción del producto.
+                id:
+                  type: integer
+                  description: id del producto.
       responses:
         '200':
           description: Venta registrada exitosamente.
@@ -68,6 +69,9 @@ paths:
                 descripcion:
                   type: string
                   description: Descripcion del producto
+                cantidad:
+                  type: integer
+                  description: Cantidad de producto a actualizar
       responses:
         '200':
           description: Actualización de venta exitosa.
@@ -101,7 +105,7 @@ paths:
                 cantidad:
                   type: integer
                   description: Cantidad de productos en la entrada.
-                producto:
+                nombre_producto:
                   type: string
                   description: Nombre del producto.
                 descripcion:
@@ -137,6 +141,9 @@ paths:
                 descripcion:
                   type: string
                   description: Descripcion del producto
+                cantidad:
+                  type: integer
+                  description: Cantidad de producto a actualizar
       responses:
         '200':
           description: Producto y entrada actualizados exitosamente.
@@ -175,3 +182,13 @@ paths:
           description: Lista de productos con sus entradas.
         '500':
           description: Error del servidor.
+  /api/inventario:
+    get:
+      tags:
+        - Inventario
+      summary: Lista de inventario
+      responses:
+        '200':
+          description: Lista de inventario
+        '500':
+          description: Error servidor.

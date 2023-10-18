@@ -5,8 +5,8 @@ import { sequelize } from '../database/database.js';
 export const CrearProducto = async (req, res) => {
   const t = await sequelize.transaction();
   try {
-    const { cantidad, producto, descripcion } = req.body;
-    const product = await Producto.create({ producto, descripcion });
+    const { cantidad, nombre_producto, descripcion } = req.body;
+    const product = await Producto.create({ nombre_producto, descripcion });
     const productoId = product.id;
     const entrada = await Entrada.create({ cantidad, productoId });
 

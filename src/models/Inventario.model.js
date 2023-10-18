@@ -10,6 +10,10 @@ export const Inventario = sequelize.define(
       primaryKey: true,
       autoIncrement: true,
     },
+    cantidad_actual: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
   },
   {
     timestamps: false,

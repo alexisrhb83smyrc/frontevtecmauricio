@@ -5,6 +5,7 @@ import YAML from 'yamljs';
 
 import entrada from './routes/Entrada.routes.js';
 import salida from './routes/Salida.routes.js';
+import inventario from './routes/inventario.routes.js';
 import './relations/Relaciones.js';
 
 const app = express();
@@ -26,4 +27,5 @@ const swaggerDoc = YAML.load('src/doc.yaml');
 app.use('/doc', swaggerUI.serve, swaggerUI.setup(swaggerDoc));
 app.use(entrada);
 app.use(salida);
+app.use(inventario);
 export default app;
